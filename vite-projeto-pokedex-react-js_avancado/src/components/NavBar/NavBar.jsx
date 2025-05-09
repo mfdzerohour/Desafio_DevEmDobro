@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import pokemonLogo from "../../images/pokemonLogo.png";
 import ThemeToggler from "../ThemeToggler/ThemeToggler.jsx";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -40,11 +41,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function NavBar({ pokemonFilter }) {
+export default function NavBar({ pokemonFilter, searchMode, setSearchMode, availableTypes }) {
     const theme = useTheme(); // Acessa o tema atual
+    const [searchValue, setSearchValue] = React.useState("");
 
     const handleSearchChange = (event) => {
-        pokemonFilter(event.target.value);
+        setSearchValue(event.target.value);
+        pokemonFilter(event.target.value, searchMode);
+    };
+
+    const handleModeChange = (event) => {
+        setSearchMode(event.target.value);
+        setSearchValue("");
+        pokemonFilter("", event.target.value);
+    };
+
+    const handleTypeChange = (event) => {
+        setSearchValue(event.target.value);
+        pokemonFilter(event.target.value, "type");
     };
 
     return (
@@ -65,7 +79,7 @@ export default function NavBar({ pokemonFilter }) {
                     {/* Logo */}
                     <Box component="img" src={pokemonLogo} height="3em" />
 
-                    {/* Campo de busca */}
+                    {/* Campo de busca e seletor de modo */}
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -75,16 +89,50 @@ export default function NavBar({ pokemonFilter }) {
                             marginRight: "1em",
                         }}
                     >
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Buscar Pokémon..."
-                                inputProps={{ "aria-label": "search" }}
-                                onChange={handleSearchChange}
-                            />
-                        </Search>
+                        <FormControl sx={{ minWidth: 120, marginRight: 2 }} size="small">
+                            <InputLabel id="search-mode-label">Buscar por</InputLabel>
+                            <Select
+                                labelId="search-mode-label"
+                                id="search-mode"
+                                value={searchMode}
+                                label="Buscar por"
+                                onChange={handleModeChange}
+                            >
+                                <MenuItem value="name">Nome</MenuItem>
+                                <MenuItem value="type">Tipo</MenuItem>
+                            </Select>
+                        </FormControl>
+                        {searchMode === "name" ? (
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Buscar Pokémon..."
+                                    inputProps={{ "aria-label": "search" }}
+                                    value={searchValue}
+                                    onChange={handleSearchChange}
+                                />
+                            </Search>
+                        ) : (
+                            <FormControl sx={{ minWidth: 140 }} size="small">
+                                <InputLabel id="type-select-label">Tipo</InputLabel>
+                                <Select
+                                    labelId="type-select-label"
+                                    id="type-select"
+                                    value={searchValue}
+                                    label="Tipo"
+                                    onChange={handleTypeChange}
+                                >
+                                    <MenuItem value="">Todos</MenuItem>
+                                    {availableTypes && availableTypes.map((type) => (
+                                        <MenuItem key={type} value={type}>
+                                            {type.charAt(0).toUpperCase() + type.slice(1)}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
                     </Box>
 
                     {/* Botão de alternância de tema */}

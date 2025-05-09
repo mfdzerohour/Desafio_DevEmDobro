@@ -8,7 +8,7 @@ R: Projeto final do modulo React do curso DevEmDobro, mostrar o uso do conhecime
 
 Breve descrição das funcionalidades da
 aplicação entregue;
-Pesquisa do nome do Pokemon acima (topo), só funciona para os pokemons exibidos (em tela), no futuro poderia ser implementada a pesquisa do norme da biblilhoteca do pokemon mesmo que ele não esteja exibido em tela;
+Pesquisa do nome do Pokemon acima (topo), só funciona para os pokemons exibidos (em tela), no futuro poderia ser implementada a pesquisa do nome da biblilhoteca do pokemon mesmo que ele não esteja exibido em tela;
 exibe um botão para colocar ele mais claro ou escuro (dois themas);
 Abaixo ele exibe inicialmente 10 pokemons e ao clicar no botão Carregar + 10 pokemons exibe outros 10 e assim por adiante;
 Mostra o nome, o tipo (no futuro com o simbolo em figura), movimentos e habilidades.
