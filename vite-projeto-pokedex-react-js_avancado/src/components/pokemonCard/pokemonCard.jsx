@@ -129,3 +129,66 @@ export default function PokemonCard({ name, image, types, moves, abilities }) {
         </Card>
     );
 }
+
+// IMPLEMENTANDO A ROTA COMO DEVERIA FICAR MAS NÂO FUNCIONA
+// import React from "react";
+// import Card from "@mui/material/Card";
+// import CardContent from "@mui/material/CardContent";
+// import CardMedia from "@mui/material/CardMedia";
+// import Typography from "@mui/material/Typography";
+// import { Box } from "@mui/material";
+// import { useNavigate } from "react-router-dom"; // Importa o hook useNavigate
+
+// export default function PokemonCard({ name, image, types }) {
+//     const navigate = useNavigate(); // Hook para navegação
+
+//     const handleCardClick = () => {
+//         navigate(`/pokemon/${name}`); // Navega para a rota do Pokémon
+//     };
+
+//     return (
+//         <Card
+//             onClick={handleCardClick} // Adiciona o evento de clique
+//             sx={{
+//                 display: "flex",
+//                 flexDirection: "column",
+//                 height: "100%",
+//                 backgroundColor: "#ffffff",
+//                 color: "#000000",
+//                 border: "1px solid #e0e0e0",
+//                 borderRadius: "8px",
+//                 boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+//                 transition: "box-shadow 0.3s ease-in-out",
+//                 "&:hover": {
+//                     boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.3)",
+//                     cursor: "pointer",
+//                 },
+//             }}
+//         >
+//             <CardMedia
+//                 sx={{
+//                     height: 200,
+//                     objectFit: "contain",
+//                     width: "100%",
+//                     backgroundColor: "#f5f5f5",
+//                 }}
+//                 image={image}
+//                 title={name}
+//             />
+//             <CardContent sx={{ flexGrow: 1 }}>
+//                 <Box
+//                     display="flex"
+//                     justifyContent="space-between"
+//                     alignItems="center"
+//                 >
+//                     <Typography gutterBottom variant="h5" component="div">
+//                         {name}
+//                     </Typography>
+//                     <Typography gutterBottom variant="caption" component="div">
+//                         {types.map((type) => type.type.name).join(", ")}
+//                     </Typography>
+//                 </Box>
+//             </CardContent>
+//         </Card>
+//     );
+// }

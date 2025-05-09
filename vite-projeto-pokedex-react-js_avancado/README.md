@@ -50,11 +50,11 @@ R:
 Passo a passo para baixar as dependências e rodar o projeto em outra máquina:
 1. Clone o repositório
 No terminal, execute o comando para clonar o repositório do projeto:
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/mfdzerohour/Desafio_DevEmDobro
 
 2. Acesse o diretório do projeto
 Navegue até o diretório do projeto clonado:
-cd <NOME_DO_DIRETORIO>
+cd \Desafio_DevEmDobro\vite-projeto-pokedex-react-js_avancado
 
 3. Instale as dependências
 Certifique-se de que você tem o Node.js instalado na máquina. Para instalar as dependências do projeto, execute:

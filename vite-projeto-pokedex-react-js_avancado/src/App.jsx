@@ -8,22 +8,22 @@ function App() {
     )
 }
 
-export default App
+export default App;
 
-
+// IMPLEMENTANDO A ROTA COMO DEVERIA FICAR MAS NÂO FUNCIONA
 // import React from "react";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import HomeView from "../src/pages/home/homeView.jsx";
-// import PokemonDetails from "../src/pages/pokemonDetails/pokemonDetails.jsx";
+// import HomeView from "./pages/home/homeView";
+// import PokemonDetails from "./pages/pokemonDetails/pokemonDetails";
 
 // function App() {
 //     return (
 //         <Router>
 //             <Routes>
-//                 {/* Rota para a página inicial */}
+//                 {/* Página inicial */}
 //                 <Route path="/" element={<HomeView />} />
 
-//                 {/* Rota para a página de detalhes do Pokémon */}
+//                 {/* Página de detalhes do Pokémon */}
 //                 <Route path="/pokemon/:name" element={<PokemonDetails />} />
 //             </Routes>
 //         </Router>
