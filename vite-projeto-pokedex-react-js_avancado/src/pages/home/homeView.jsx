@@ -1,11 +1,17 @@
 import "./home.css";
-import { Grid, Button, Container, Box } from "@mui/material";
+import { Grid, Button, Container, Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles"; // Importa o hook useTheme
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import PokemonCard from "../../components/pokemonCard/pokemonCard.jsx";
 import { Skeletons } from "../../components/Skeletons/Skeletons.jsx";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import PokemonDetails from "../pokemonDetails/pokemonDetails.jsx";
 
 export const HomeView = () => {
     const [pokemons, setPokemons] = useState([]);
@@ -14,6 +20,7 @@ export const HomeView = () => {
     const [offset, setOffset] = useState(0); // Estado para controlar o deslocamento (quantos Pokémons já foram carregados)
     const [searchMode, setSearchMode] = useState("name"); // Novo estado para modo de busca
     const [availableTypes, setAvailableTypes] = useState([]); // Tipos exibidos
+    const [selectedPokemon, setSelectedPokemon] = useState(null); // Novo estado para o Pokémon selecionado
 
     const theme = useTheme(); // Acessa o tema atual
 
@@ -110,14 +117,44 @@ export const HomeView = () => {
             });
     };
 
-    const pokemonFilter = (value, mode = searchMode) => {
+    // Função para filtrar e buscar pokémons
+    const pokemonFilter = async (value, mode = searchMode) => {
         if (value === "") {
             setPokemons(allPokemons); // Restaure todos os Pokémons se a pesquisa estiver vazia
         } else if (mode === "name") {
             const filteredPokemons = allPokemons.filter((pokemon) =>
                 pokemon.name.toLowerCase().includes(value.toLowerCase())
             );
-            setPokemons(filteredPokemons);
+            if (filteredPokemons.length > 0) {
+                setPokemons(filteredPokemons);
+            } else {
+                // Busca na API se não encontrar localmente
+                try {
+                    setLoading(true);
+                    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`);
+                    const newPokemon = {
+                        name: res.data.name,
+                        image: res.data.sprites.front_default,
+                        types: res.data.types,
+                        moves: res.data.moves,
+                        abilities: res.data.abilities,
+                        height: res.data.height,
+                        weight: res.data.weight,
+                    };
+                    setPokemons([newPokemon]);
+                    setAllPokemons((prev) => {
+                        // Só adiciona se não existir
+                        if (!prev.some((p) => p.name === newPokemon.name)) {
+                            return [...prev, newPokemon];
+                        }
+                        return prev;
+                    });
+                } catch {
+                    setPokemons([]);
+                } finally {
+                    setLoading(false);
+                }
+            }
         } else if (mode === "type") {
             const filteredPokemons = allPokemons.filter((pokemon) =>
                 pokemon.types.some((t) =>
@@ -126,6 +163,25 @@ export const HomeView = () => {
             );
             setPokemons(filteredPokemons);
         }
+    };
+
+    // Função para abrir o modal com detalhes
+    const handleOpenDetails = async (pokemon) => {
+        setSelectedPokemon(null); // Limpa o estado para mostrar o loading
+        try {
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
+            setSelectedPokemon({
+                ...res.data,
+                image: res.data.sprites.front_default, // mantém compatibilidade
+            });
+        } catch {
+            setSelectedPokemon({ name: pokemon.name, error: 'Erro ao buscar detalhes.' });
+        }
+    };
+
+    // Função para fechar o modal
+    const handleCloseDetails = () => {
+        setSelectedPokemon(null);
     };
 
     return (
@@ -161,13 +217,22 @@ export const HomeView = () => {
                                 xl={2}
                                 key={key}
                             >
-                                <PokemonCard
-                                    name={pokemon.name}
-                                    image={pokemon.image}
-                                    types={pokemon.types}
-                                    moves={pokemon.moves}
-                                    abilities={pokemon.abilities}
-                                />
+                                <div
+                                    onClick={() => handleOpenDetails(pokemon)}
+                                    style={{ cursor: "pointer", height: "100%" }}
+                                >
+                                    <PokemonCard
+                                        name={pokemon.name}
+                                        image={pokemon.image}
+                                        types={pokemon.types}
+                                        moves={pokemon.moves}
+                                        abilities={pokemon.abilities}
+                                        // Adiciona as props traduzidas
+                                        labelTypes="Tipos"
+                                        labelMoves="Movimentos"
+                                        labelAbilities="Habilidades"
+                                    />
+                                </div>
                             </Grid>
                         ))
                     )}
@@ -190,6 +255,34 @@ export const HomeView = () => {
                     {loading ? "Carregando..." : "Carregar +10 Pokémons"}
                 </Button>
             </Container>
+            {/* Modal de detalhes do Pokémon */}
+            <Dialog
+                open={!!selectedPokemon}
+                onClose={handleCloseDetails}
+                maxWidth="xs"
+                fullWidth
+            >
+                <DialogTitle>
+                    Detalhes do Pokémon
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleCloseDetails}
+                        sx={{
+                            position: "absolute",
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent>
+                    {selectedPokemon && (
+                        <PokemonDetails pokemon={selectedPokemon} />
+                    )}
+                </DialogContent>
+            </Dialog>
         </>
     );
 };

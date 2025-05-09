@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles"; // Importa o hook useTheme
 import axios from "axios";
 
-export default function PokemonCard({ name, image, types, moves, abilities }) {
+export default function PokemonCard({ name, image, types, moves, abilities, labelTypes = "Tipos", labelMoves = "Movimentos", labelAbilities = "Habilidades" }) {
     const [abilityDetails, setAbilityDetails] = React.useState([]);
     const theme = useTheme(); // Acessa o tema atual
 
@@ -97,17 +97,17 @@ export default function PokemonCard({ name, image, types, moves, abilities }) {
                         {name}
                     </Typography>
                     <Typography gutterBottom variant="caption" component="div">
-                        {typeHandler(types)}
+                        {labelTypes}: {typeHandler(types)}
                     </Typography>
                 </Box>
                 <Typography
                     variant="body2"
                     sx={{ mb: 1, color: "#757575" }} // Cor fixa para o texto secundário
                 >
-                    <strong>Moves:</strong> {moveHandler(moves)}
+                    <strong>{labelMoves}:</strong> {moveHandler(moves)}
                 </Typography>
                 <Typography variant="body2" sx={{ color: "#757575" }}>
-                    <strong>Abilities:</strong>
+                    <strong>{labelAbilities}:</strong>
                 </Typography>
                 {abilityDetails.length > 0 ? (
                     abilityDetails.map((ability, index) => (
@@ -122,7 +122,7 @@ export default function PokemonCard({ name, image, types, moves, abilities }) {
                     ))
                 ) : (
                     <Typography variant="body2" sx={{ color: "#757575" }}>
-                        No abilities available.
+                        Nenhuma habilidade disponível.
                     </Typography>
                 )}
             </CardContent>

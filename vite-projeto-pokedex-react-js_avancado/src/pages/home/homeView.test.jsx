@@ -1,20 +1,20 @@
 /* global jest, describe, it, expect */
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { HomeView } from "./homeView";
+import axios from "axios";
 
-// Mock das dependências externas
+// Mocks básicos dos componentes e dependências externas
 jest.mock("axios", () => ({
     all: jest.fn(() => Promise.resolve([])),
     get: jest.fn(() => Promise.resolve({ data: {} })),
 }));
-// Não repassar props customizadas para o DOM
-jest.mock("../../components/NavBar/NavBar.jsx", () => () => (
+jest.mock("../../components/NavBar/NavBar.jsx", () => (props) => (
     <div data-testid="navbar" />
 ));
-jest.mock("../../components/pokemonCard/pokemonCard.jsx", () => () => (
-    <div data-testid="pokemon-card" />
+jest.mock("../../components/pokemonCard/pokemonCard.jsx", () => (props) => (
+    <div data-testid="pokemon-card" onClick={props.onClick}>{props.name}</div>
 ));
 jest.mock("../../components/Skeletons/Skeletons.jsx", () => ({
     Skeletons: () => <div data-testid="skeletons" />,
@@ -25,40 +25,46 @@ describe("HomeView", () => {
         render(<HomeView />);
         expect(screen.getByTestId("navbar")).toBeInTheDocument();
         expect(
-            screen.getByRole("button", { name: /carregando/i })
+            screen.getByRole("button", { name: /carregar/i })
         ).toBeInTheDocument();
     });
 
-    it("chama a função de carregar mais pokémons ao clicar no botão", async () => {
-        render(<HomeView />);
-        const button = screen.getByRole("button", { name: /carregando/i });
-        fireEvent.click(button);
-        // Não há assert de resultado pois axios está mockado
-    });
-
-    it("filtra pokémons por nome corretamente", async () => {
-        // Simula pokémons carregados
-        const pokemons = [
+    it("abre o modal de detalhes ao clicar em um card de Pokémon", async () => {
+        axios.get.mockResolvedValueOnce({ data: { results: [{ name: "bulbasaur", url: "url" }] } });
+        axios.all.mockResolvedValueOnce([
             {
                 name: "bulbasaur",
                 types: [{ type: { name: "grass" } }],
-                moves: [],
-                abilities: [],
-                image: "",
+                moves: [{ move: { name: "tackle" } }],
+                abilities: [{ ability: { name: "overgrow" } }],
+                sprites: { other: { "official-artwork": { front_default: "bulba.png" } } },
+                height: 7,
+                weight: 69,
             },
-            {
-                name: "charmander",
-                types: [{ type: { name: "fire" } }],
-                moves: [],
-                abilities: [],
-                image: "",
-            },
-        ];
-        jest.spyOn(React, "useState")
-            .mockImplementationOnce(() => [pokemons, jest.fn()])
-            .mockImplementationOnce(() => [pokemons, jest.fn()])
-            .mockImplementation((init) => [init, jest.fn()]);
+        ]);
         render(<HomeView />);
-        // Não há assert de resultado pois a NavBar é mockada
+        const card = await screen.findByTestId("pokemon-card");
+        fireEvent.click(card);
+        expect(await screen.findByText(/detalhes do pokémon/i)).toBeInTheDocument();
+        expect(screen.getByText(/bulbasaur/i)).toBeInTheDocument();
+    });
+
+    it("busca um pokémon inexistente na lista e exibe na tela", async () => {
+        // Simula busca por um pokémon que não está na lista
+        axios.get.mockResolvedValueOnce({
+            data: {
+                name: "pikachu",
+                sprites: { front_default: "pikachu.png" },
+                types: [{ type: { name: "electric" } }],
+                moves: [{ move: { name: "thunder-shock" } }],
+                abilities: [{ ability: { name: "static" } }],
+                height: 4,
+                weight: 60,
+            },
+        });
+        render(<HomeView />);
+        await waitFor(() => {
+            expect(screen.queryByText(/pikachu/i)).toBeInTheDocument();
+        });
     });
 });
