@@ -155,18 +155,16 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                         )}
 
                         {searchMode === "type" && (
-                            <FormControl
-                                sx={{ minWidth: 120 }}
-                                size="small"
-                            >
+                            <FormControl sx={{ minWidth: 120, marginLeft: 2, transition: 'width 0.2s, margin 0.2s' }} size="small">
                                 <InputLabel
                                     id="type-select-label"
                                     sx={{
                                         color: "#fff",
-                                        "&.Mui-focused": {
+                                        '&.Mui-focused': {
                                             color: "#fff",
                                         },
                                     }}
+                                    shrink={true} // Força o label a ficar sempre acima
                                 >
                                     Tipo
                                 </InputLabel>
@@ -195,12 +193,29 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                         '&:hover .MuiOutlinedInput-notchedOutline': {
                                             borderColor: '#fff',
                                         },
-                                        // Corrige o hover do container do Select
                                         '&.MuiOutlinedInput-root:hover': {
                                             borderColor: '#fff',
                                         },
                                     }}
+                                    displayEmpty
+                                    MenuProps={{
+                                        PaperProps: {
+                                            sx: {
+                                                backgroundColor: alpha(theme.palette.common.white, 0.15),
+                                                '& .MuiMenuItem-root': {
+                                                    backgroundColor: '#fff',
+                                                    color: '#000',
+                                                    '&:hover': {
+                                                        backgroundColor: alpha(theme.palette.common.white, 0.25),
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    }}
                                 >
+                                    <MenuItem value="">
+                                        <em>Todos</em>
+                                    </MenuItem>
                                     {availableTypes.map((type) => (
                                         <MenuItem key={type} value={type}>
                                             {type}
