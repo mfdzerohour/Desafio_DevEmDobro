@@ -145,6 +145,7 @@ export default function NavBar({
                                         borderColor: "#fff",
                                     },
                                 }}
+                                displayEmpty
                                 MenuProps={{
                                     PaperProps: {
                                         sx: {
@@ -155,20 +156,13 @@ export default function NavBar({
                                             "& .MuiMenuItem-root": {
                                                 backgroundColor: "#fff",
                                                 color: "#000",
-                                                "&.Mui-selected": {
-                                                    backgroundColor:
-                                                        theme.palette.secondary.main,
-                                                    color: "#fff",
+                                                '&.Mui-selected, &.Mui-selected:hover': {
+                                                    backgroundColor: `${theme.palette.secondary.main} !important`,
+                                                    color: '#fff !important',
                                                 },
-                                                "&.Mui-selected:hover": {
-                                                    backgroundColor:
-                                                        theme.palette.secondary.main,
-                                                    color: "#fff",
-                                                },
-                                                "&:hover": {
-                                                    backgroundColor:
-                                                        theme.palette.secondary.main,
-                                                    color: "#fff",
+                                                '&:hover': {
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    color: '#fff',
                                                 },
                                             },
                                         },
@@ -178,21 +172,31 @@ export default function NavBar({
                                 <MenuItem
                                     value="name"
                                     sx={{
-                                        background: searchMode === "name" ? theme.palette.secondary.main : "#fff",
-                                        color: searchMode === "name" ? "#fff" : "#000",
-                                        fontWeight: searchMode === "name" ? 600 : 400,
+                                        background:
+                                            searchMode === "name"
+                                                ? theme.palette.secondary.main
+                                                : "#fff",
+                                        color:
+                                            searchMode === "name"
+                                                ? "#fff"
+                                                : "#000",
+                                        fontWeight:
+                                            searchMode === "name" ? 600 : 400,
                                         opacity: 1,
-                                        '&.Mui-selected': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&.Mui-selected": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
-                                        '&.Mui-selected:hover': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&.Mui-selected:hover": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
-                                        '&:hover': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&:hover": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
                                     }}
                                 >
@@ -201,21 +205,31 @@ export default function NavBar({
                                 <MenuItem
                                     value="type"
                                     sx={{
-                                        background: searchMode === "type" ? theme.palette.secondary.main : "#fff",
-                                        color: searchMode === "type" ? "#fff" : "#000",
-                                        fontWeight: searchMode === "type" ? 600 : 400,
+                                        background:
+                                            searchMode === "type"
+                                                ? theme.palette.secondary.main
+                                                : "#fff",
+                                        color:
+                                            searchMode === "type"
+                                                ? "#fff"
+                                                : "#000",
+                                        fontWeight:
+                                            searchMode === "type" ? 600 : 400,
                                         opacity: 1,
-                                        '&.Mui-selected': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&.Mui-selected": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
-                                        '&.Mui-selected:hover': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&.Mui-selected:hover": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
-                                        '&:hover': {
-                                            backgroundColor: theme.palette.secondary.main,
-                                            color: '#fff',
+                                        "&:hover": {
+                                            backgroundColor:
+                                                theme.palette.secondary.main,
+                                            color: "#fff",
                                         },
                                     }}
                                 >
