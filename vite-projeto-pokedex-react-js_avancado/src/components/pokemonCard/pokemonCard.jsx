@@ -7,7 +7,16 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles"; // Importa o hook useTheme
 import axios from "axios";
 
-export default function PokemonCard({ name, image, types, moves, abilities, labelTypes = "Tipos", labelMoves = "Movimentos", labelAbilities = "Habilidades" }) {
+export default function PokemonCard({
+    name,
+    image,
+    types,
+    moves,
+    abilities,
+    labelTypes = "Tipos",
+    labelMoves = "Movimentos",
+    labelAbilities = "Habilidades",
+}) {
     const [abilityDetails, setAbilityDetails] = React.useState([]);
     const theme = useTheme(); // Acessa o tema atual
 
@@ -66,14 +75,16 @@ export default function PokemonCard({ name, image, types, moves, abilities, labe
                 color: "#000000", // Cor fixa para o texto
                 border: "1px solid #e0e0e0", // Borda fixa
                 borderRadius: "8px", // Bordas arredondadas
-                boxShadow: theme.palette.mode === "dark"
-                    ? "0px 4px 8px rgba(255, 255, 255, 0.2)" // Sombra clara no tema escuro
-                    : "0px 4px 8px rgba(0, 0, 0, 0.2)", // Sombra escura no tema claro
+                boxShadow:
+                    theme.palette.mode === "dark"
+                        ? "0px 4px 8px rgba(255, 255, 255, 0.2)" // Sombra clara no tema escuro
+                        : "0px 4px 8px rgba(0, 0, 0, 0.2)", // Sombra escura no tema claro
                 transition: "box-shadow 0.3s ease-in-out", // Transição suave para hover
                 "&:hover": {
-                    boxShadow: theme.palette.mode === "dark"
-                        ? "0px 8px 16px rgba(27, 221, 227, 0.493)" // Sombra clara mais forte no tema escuro
-                        : "0px 8px 16px rgba(0, 0, 0, 0.3)", // Sombra escura mais forte no tema claro
+                    boxShadow:
+                        theme.palette.mode === "dark"
+                            ? "0px 8px 16px rgba(27, 221, 227, 0.493)" // Sombra clara mais forte no tema escuro
+                            : "0px 8px 16px rgba(0, 0, 0, 0.3)", // Sombra escura mais forte no tema claro
                 },
             }}
         >

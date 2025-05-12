@@ -131,7 +131,9 @@ export const HomeView = () => {
                 // Busca na API se não encontrar localmente
                 try {
                     setLoading(true);
-                    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`);
+                    const res = await axios.get(
+                        `https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`
+                    );
                     const newPokemon = {
                         name: res.data.name,
                         image: res.data.sprites.front_default,
@@ -169,13 +171,18 @@ export const HomeView = () => {
     const handleOpenDetails = async (pokemon) => {
         setSelectedPokemon(null); // Limpa o estado para mostrar o loading
         try {
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
+            const res = await axios.get(
+                `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+            );
             setSelectedPokemon({
                 ...res.data,
                 image: res.data.sprites.front_default, // mantém compatibilidade
             });
         } catch {
-            setSelectedPokemon({ name: pokemon.name, error: 'Erro ao buscar detalhes.' });
+            setSelectedPokemon({
+                name: pokemon.name,
+                error: "Erro ao buscar detalhes.",
+            });
         }
     };
 
@@ -219,7 +226,10 @@ export const HomeView = () => {
                             >
                                 <div
                                     onClick={() => handleOpenDetails(pokemon)}
-                                    style={{ cursor: "pointer", height: "100%" }}
+                                    style={{
+                                        cursor: "pointer",
+                                        height: "100%",
+                                    }}
                                 >
                                     <PokemonCard
                                         name={pokemon.name}

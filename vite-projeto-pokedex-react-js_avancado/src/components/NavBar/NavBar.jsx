@@ -41,9 +41,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function NavBar({ pokemonFilter, searchMode, setSearchMode, availableTypes }) {
+export default function NavBar({
+    pokemonFilter,
+    searchMode = "name", // valor padrão para searchMode
+    setSearchMode,
+    availableTypes,
+}) {
     const theme = useTheme(); // Acessa o tema atual
     const [searchValue, setSearchValue] = React.useState("");
+
+    React.useEffect(() => {
+        // Garante que o valor inicial do combobox seja sempre 'name' ao montar
+        if (!searchMode) {
+            setSearchMode("name");
+        }
+    }, [searchMode, setSearchMode]);
 
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
@@ -117,29 +129,59 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                     ),
                                     color: "#fff",
                                     borderRadius: 1,
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#fff',
+                                    "& .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
                                     },
-                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#fff',
+                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
                                     },
-                                    '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#fff',
+                                    "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
                                     },
-                                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#fff',
+                                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
                                     },
-                                    // Corrige o hover do container do Select
-                                    '&.MuiOutlinedInput-root:hover': {
-                                        borderColor: '#fff',
+                                    "&.MuiOutlinedInput-root:hover": {
+                                        borderColor: "#fff",
+                                    },
+                                }}
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: {
+                                            backgroundColor: alpha(
+                                                theme.palette.common.white,
+                                                0.15
+                                            ),
+                                            "& .MuiMenuItem-root": {
+                                                backgroundColor: "#fff",
+                                                color: "#000",
+                                                "&.Mui-selected": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary.main,
+                                                    color: "#fff",
+                                                },
+                                                "&.Mui-selected:hover": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary.main,
+                                                    color: "#fff",
+                                                },
+                                                "&:hover": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary.main,
+                                                    color: "#fff",
+                                                },
+                                            },
+                                        },
                                     },
                                 }}
                             >
                                 <MenuItem
                                     value="name"
                                     sx={{
-                                        background: '#fff',
-                                        color: '#000',
+                                        background: searchMode === "name" ? theme.palette.secondary.main : "#fff",
+                                        color: searchMode === "name" ? "#fff" : "#000",
+                                        fontWeight: searchMode === "name" ? 600 : 400,
+                                        opacity: 1,
                                         '&.Mui-selected': {
                                             backgroundColor: theme.palette.secondary.main,
                                             color: '#fff',
@@ -159,8 +201,10 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                 <MenuItem
                                     value="type"
                                     sx={{
-                                        background: '#fff',
-                                        color: '#000',
+                                        background: searchMode === "type" ? theme.palette.secondary.main : "#fff",
+                                        color: searchMode === "type" ? "#fff" : "#000",
+                                        fontWeight: searchMode === "type" ? 600 : 400,
+                                        opacity: 1,
                                         '&.Mui-selected': {
                                             backgroundColor: theme.palette.secondary.main,
                                             color: '#fff',
@@ -195,12 +239,19 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                         )}
 
                         {searchMode === "type" && (
-                            <FormControl sx={{ minWidth: 120, marginLeft: 2, transition: 'width 0.2s, margin 0.2s' }} size="small">
+                            <FormControl
+                                sx={{
+                                    minWidth: 120,
+                                    marginLeft: 2,
+                                    transition: "width 0.2s, margin 0.2s",
+                                }}
+                                size="small"
+                            >
                                 <InputLabel
                                     id="type-select-label"
                                     sx={{
                                         color: "#fff",
-                                        '&.Mui-focused': {
+                                        "&.Mui-focused": {
                                             color: "#fff",
                                         },
                                     }}
@@ -221,41 +272,53 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                         ),
                                         color: "#fff",
                                         borderRadius: 1,
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#fff',
+                                        "& .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#fff",
                                         },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#fff',
-                                        },
-                                        '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#fff',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#fff',
-                                        },
-                                        '&.MuiOutlinedInput-root:hover': {
-                                            borderColor: '#fff',
+                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                            {
+                                                borderColor: "#fff",
+                                            },
+                                        "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                                            {
+                                                borderColor: "#fff",
+                                            },
+                                        "&:hover .MuiOutlinedInput-notchedOutline":
+                                            {
+                                                borderColor: "#fff",
+                                            },
+                                        "&.MuiOutlinedInput-root:hover": {
+                                            borderColor: "#fff",
                                         },
                                     }}
                                     displayEmpty
                                     MenuProps={{
                                         PaperProps: {
                                             sx: {
-                                                backgroundColor: alpha(theme.palette.common.white, 0.15),
-                                                '& .MuiMenuItem-root': {
-                                                    backgroundColor: '#fff',
-                                                    color: '#000',
-                                                    '&.Mui-selected': {
-                                                        backgroundColor: theme.palette.secondary.main,
-                                                        color: '#fff',
+                                                backgroundColor: alpha(
+                                                    theme.palette.common.white,
+                                                    0.15
+                                                ),
+                                                "& .MuiMenuItem-root": {
+                                                    backgroundColor: "#fff",
+                                                    color: "#000",
+                                                    "&.Mui-selected": {
+                                                        backgroundColor:
+                                                            theme.palette
+                                                                .secondary.main,
+                                                        color: "#fff",
                                                     },
-                                                    '&.Mui-selected:hover': {
-                                                        backgroundColor: theme.palette.secondary.main,
-                                                        color: '#fff',
+                                                    "&.Mui-selected:hover": {
+                                                        backgroundColor:
+                                                            theme.palette
+                                                                .secondary.main,
+                                                        color: "#fff",
                                                     },
-                                                    '&:hover': {
-                                                        backgroundColor: theme.palette.secondary.main,
-                                                        color: '#fff',
+                                                    "&:hover": {
+                                                        backgroundColor:
+                                                            theme.palette
+                                                                .secondary.main,
+                                                        color: "#fff",
                                                     },
                                                 },
                                             },
@@ -270,19 +333,25 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                             key={type}
                                             value={type}
                                             sx={{
-                                                background: '#fff',
-                                                color: '#000',
-                                                '&:hover': {
-                                                    backgroundColor: theme.palette.secondary.main,
-                                                    color: '#fff',
+                                                background: "#fff",
+                                                color: "#000",
+                                                "&:hover": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary
+                                                            .main,
+                                                    color: "#fff",
                                                 },
-                                                '&.Mui-selected': {
-                                                    backgroundColor: theme.palette.secondary.main,
-                                                    color: '#fff',
+                                                "&.Mui-selected": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary
+                                                            .main,
+                                                    color: "#fff",
                                                 },
-                                                '&.Mui-selected:hover': {
-                                                    backgroundColor: theme.palette.secondary.main,
-                                                    color: '#fff',
+                                                "&.Mui-selected:hover": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary
+                                                            .main,
+                                                    color: "#fff",
                                                 },
                                             }}
                                         >

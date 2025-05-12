@@ -1,7 +1,7 @@
 /* global jest, describe, it, expect */
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 import { HomeView } from "./homeView";
 import axios from "axios";
 
@@ -14,7 +14,9 @@ jest.mock("../../components/NavBar/NavBar.jsx", () => (props) => (
     <div data-testid="navbar" />
 ));
 jest.mock("../../components/pokemonCard/pokemonCard.jsx", () => (props) => (
-    <div data-testid="pokemon-card" onClick={props.onClick}>{props.name}</div>
+    <div data-testid="pokemon-card" onClick={props.onClick}>
+        {props.name}
+    </div>
 ));
 jest.mock("../../components/Skeletons/Skeletons.jsx", () => ({
     Skeletons: () => <div data-testid="skeletons" />,
@@ -30,14 +32,20 @@ describe("HomeView", () => {
     });
 
     it("abre o modal de detalhes ao clicar em um card de Pokémon", async () => {
-        axios.get.mockResolvedValueOnce({ data: { results: [{ name: "bulbasaur", url: "url" }] } });
+        axios.get.mockResolvedValueOnce({
+            data: { results: [{ name: "bulbasaur", url: "url" }] },
+        });
         axios.all.mockResolvedValueOnce([
             {
                 name: "bulbasaur",
                 types: [{ type: { name: "grass" } }],
                 moves: [{ move: { name: "tackle" } }],
                 abilities: [{ ability: { name: "overgrow" } }],
-                sprites: { other: { "official-artwork": { front_default: "bulba.png" } } },
+                sprites: {
+                    other: {
+                        "official-artwork": { front_default: "bulba.png" },
+                    },
+                },
                 height: 7,
                 weight: 69,
             },
@@ -45,7 +53,9 @@ describe("HomeView", () => {
         render(<HomeView />);
         const card = await screen.findByTestId("pokemon-card");
         fireEvent.click(card);
-        expect(await screen.findByText(/detalhes do pokémon/i)).toBeInTheDocument();
+        expect(
+            await screen.findByText(/detalhes do pokémon/i)
+        ).toBeInTheDocument();
         expect(screen.getByText(/bulbasaur/i)).toBeInTheDocument();
     });
 

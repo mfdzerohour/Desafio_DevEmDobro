@@ -16,7 +16,10 @@ const PokemonDetails = ({ pokemon }) => {
                 {pokemon.name}
             </Typography>
             <img
-                src={pokemon.image || pokemon.sprites?.other?.["official-artwork"]?.front_default}
+                src={
+                    pokemon.image ||
+                    pokemon.sprites?.other?.["official-artwork"]?.front_default
+                }
                 alt={pokemon.name}
                 style={{ width: "200px", height: "200px" }}
             />
@@ -36,11 +39,16 @@ const PokemonDetails = ({ pokemon }) => {
             </Typography>
             <Typography>
                 <strong>Habilidades:</strong>{" "}
-                {pokemon.abilities?.map((ability) => ability.ability.name).join(", ")}
+                {pokemon.abilities
+                    ?.map((ability) => ability.ability.name)
+                    .join(", ")}
             </Typography>
             <Typography>
                 <strong>Moves:</strong>{" "}
-                {pokemon.moves?.slice(0, 5).map((move) => move.move.name).join(", ")}
+                {pokemon.moves
+                    ?.slice(0, 5)
+                    .map((move) => move.move.name)
+                    .join(", ")}
             </Typography>
         </Box>
     );
