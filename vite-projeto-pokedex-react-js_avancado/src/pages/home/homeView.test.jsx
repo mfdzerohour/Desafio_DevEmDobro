@@ -4,13 +4,14 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { HomeView } from "./homeView";
 import axios from "axios";
+import { afterEach } from "@jest/globals";
 
 // Mocks básicos dos componentes e dependências externas
 jest.mock("axios", () => ({
     all: jest.fn(() => Promise.resolve([])),
     get: jest.fn(() => Promise.resolve({ data: {} })),
 }));
-jest.mock("../../components/NavBar/NavBar.jsx", () => (props) => (
+jest.mock("../../components/NavBar/NavBar.jsx", () => () => (
     <div data-testid="navbar" />
 ));
 jest.mock("../../components/pokemonCard/pokemonCard.jsx", () => (props) => (
@@ -21,6 +22,10 @@ jest.mock("../../components/pokemonCard/pokemonCard.jsx", () => (props) => (
 jest.mock("../../components/Skeletons/Skeletons.jsx", () => ({
     Skeletons: () => <div data-testid="skeletons" />,
 }));
+
+afterEach(() => {
+    jest.clearAllMocks();
+});
 
 describe("HomeView", () => {
     it("renderiza a NavBar e o botão de carregar mais pokémons", () => {
@@ -75,6 +80,21 @@ describe("HomeView", () => {
         render(<HomeView />);
         await waitFor(() => {
             expect(screen.queryByText(/pikachu/i)).toBeInTheDocument();
+        });
+    });
+
+    it("exibe skeletons enquanto carrega os pokémons", () => {
+        render(<HomeView />);
+        expect(screen.getByTestId("skeletons")).toBeInTheDocument();
+    });
+
+    it("exibe mensagem de erro ao falhar requisição", async () => {
+        axios.get.mockRejectedValueOnce(new Error("Erro na API"));
+        render(<HomeView />);
+        await waitFor(() => {
+            expect(
+                screen.queryByText(/erro/i)
+            ).toBeInTheDocument();
         });
     });
 });

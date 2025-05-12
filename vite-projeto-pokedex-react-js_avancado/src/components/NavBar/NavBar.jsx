@@ -132,15 +132,18 @@ export default function NavBar({
                                     "& .MuiOutlinedInput-notchedOutline": {
                                         borderColor: "#fff",
                                     },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                        borderColor: "#fff",
-                                    },
-                                    "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-                                        borderColor: "#fff",
-                                    },
-                                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                                        borderColor: "#fff",
-                                    },
+                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderColor: "#fff",
+                                        },
+                                    "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderColor: "#fff",
+                                        },
+                                    "&:hover .MuiOutlinedInput-notchedOutline":
+                                        {
+                                            borderColor: "#fff",
+                                        },
                                     "&.MuiOutlinedInput-root:hover": {
                                         borderColor: "#fff",
                                     },
@@ -156,13 +159,16 @@ export default function NavBar({
                                             "& .MuiMenuItem-root": {
                                                 backgroundColor: "#fff",
                                                 color: "#000",
-                                                '&.Mui-selected, &.Mui-selected:hover': {
-                                                    backgroundColor: `${theme.palette.secondary.main} !important`,
-                                                    color: '#fff !important',
-                                                },
-                                                '&:hover': {
-                                                    backgroundColor: theme.palette.secondary.main,
-                                                    color: '#fff',
+                                                "&.Mui-selected, &.Mui-selected:hover":
+                                                    {
+                                                        backgroundColor: `${theme.palette.secondary.main} !important`,
+                                                        color: "#fff !important",
+                                                    },
+                                                "&:hover": {
+                                                    backgroundColor:
+                                                        theme.palette.secondary
+                                                            .main,
+                                                    color: "#fff",
                                                 },
                                             },
                                         },
