@@ -135,8 +135,48 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                     },
                                 }}
                             >
-                                <MenuItem value="name">Nome</MenuItem>
-                                <MenuItem value="type">Tipo</MenuItem>
+                                <MenuItem
+                                    value="name"
+                                    sx={{
+                                        background: '#fff',
+                                        color: '#000',
+                                        '&.Mui-selected': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                        '&.Mui-selected:hover': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                        '&:hover': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                    }}
+                                >
+                                    Nome
+                                </MenuItem>
+                                <MenuItem
+                                    value="type"
+                                    sx={{
+                                        background: '#fff',
+                                        color: '#000',
+                                        '&.Mui-selected': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                        '&.Mui-selected:hover': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                        '&:hover': {
+                                            backgroundColor: theme.palette.secondary.main,
+                                            color: '#fff',
+                                        },
+                                    }}
+                                >
+                                    Tipo
+                                </MenuItem>
                             </Select>
                         </FormControl>
 
@@ -205,8 +245,17 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                                 '& .MuiMenuItem-root': {
                                                     backgroundColor: '#fff',
                                                     color: '#000',
+                                                    '&.Mui-selected': {
+                                                        backgroundColor: theme.palette.secondary.main,
+                                                        color: '#fff',
+                                                    },
+                                                    '&.Mui-selected:hover': {
+                                                        backgroundColor: theme.palette.secondary.main,
+                                                        color: '#fff',
+                                                    },
                                                     '&:hover': {
-                                                        backgroundColor: alpha(theme.palette.common.white, 0.25),
+                                                        backgroundColor: theme.palette.secondary.main,
+                                                        color: '#fff',
                                                     },
                                                 },
                                             },
@@ -217,7 +266,26 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                         <em>Todos</em>
                                     </MenuItem>
                                     {availableTypes.map((type) => (
-                                        <MenuItem key={type} value={type}>
+                                        <MenuItem
+                                            key={type}
+                                            value={type}
+                                            sx={{
+                                                background: '#fff',
+                                                color: '#000',
+                                                '&:hover': {
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    color: '#fff',
+                                                },
+                                                '&.Mui-selected': {
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    color: '#fff',
+                                                },
+                                                '&.Mui-selected:hover': {
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    color: '#fff',
+                                                },
+                                            }}
+                                        >
                                             {type}
                                         </MenuItem>
                                     ))}
