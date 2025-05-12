@@ -1,65 +1,44 @@
-# Desafio Pokemon API - React
+# Pokedex React Avançado
 
-**Revisão:** 1.1.0
+## Visão Geral
 
-## Propósito da Aplicação
-
-Projeto final do módulo React do curso DevEmDobro. O objetivo é demonstrar o uso de React moderno, consumo de API, componentização, estilização e testes automatizados.
+Aplicação Pokedex desenvolvida em React, consumindo a PokeAPI, com busca dinâmica, tema claro/escuro, carregamento incremental, modal de detalhes e testes automatizados.
 
 ## Funcionalidades
 
 - **Busca por Nome ou Tipo:**
-  - No topo, é possível pesquisar Pokémon pelo nome (campo de texto) ou pelo tipo (combo box dinâmica).
-  - O modo de busca pode ser alternado por um seletor ao lado do campo de busca.
-  - A lista de tipos exibidos na combo é dinâmica, mostrando apenas os tipos dos Pokémon já carregados na tela.
+  - Seletor "Buscar por" permite alternar entre busca por nome (campo de texto) ou por tipo (combo box dinâmica).
+  - Combo de tipos exibe apenas tipos disponíveis dos Pokémon já carregados.
+  - Busca global: se o Pokémon não estiver carregado, é buscado na API e adicionado à lista.
 - **Tema Claro/Escuro:**
-  - Botão para alternar entre tema claro e escuro, afetando toda a interface.
-- **Listagem Dinâmica:**
-  - Inicialmente exibe 10 Pokémon.
-  - Botão para carregar mais 10 Pokémon por vez.
-- **Exibição de Detalhes em Pop-up:**
-  - Ao clicar em um card de Pokémon, um pop-up (modal) é aberto exibindo detalhes como nome, tipos, habilidades e movimentos do Pokémon selecionado.
+  - Alternância instantânea entre temas, afetando toda a interface.
+- **Carregamento Incremental:**
+  - Inicialmente exibe 10 Pokémon, com botão para carregar mais 10 por vez.
+- **Detalhes em Modal:**
+  - Clique em um card abre um modal com detalhes completos do Pokémon (nome, tipos, habilidades, peso, altura, movimentos, etc.), tudo em português.
 - **Skeleton Loading:**
-  - Exibe placeholders enquanto os dados estão sendo carregados.
+  - Placeholders animados enquanto os dados são carregados.
+- **Visual Consistente:**
+  - Campos de seleção ("Buscar por" e "Tipo") com fundo, texto e borda sempre visíveis e contrastantes em ambos os temas.
 - **Testes Automatizados:**
-  - Testes unitários com Jest e React Testing Library para garantir o funcionamento dos principais fluxos, incluindo a abertura do modal de detalhes.
+  - Testes com Jest e React Testing Library cobrindo renderização, busca, abertura de modal e busca global.
 
-## Ferramentas Utilizadas
+## Instalação e Execução
 
-- **React:** Biblioteca principal para construção da interface do usuário.
-- **React Router DOM:** Gerenciamento de rotas (estrutura pronta para detalhes de Pokémon).
-- **Axios:** Requisições HTTP para a PokeAPI.
-- **Material-UI (MUI):** Componentes visuais, Grid, Button, Container, Box, tema dinâmico, Dialog (modal).
-- **PokeAPI:** API pública para obter informações dos Pokémon.
-- **Vite:** Ferramenta de build e desenvolvimento rápido.
-- **Jest + React Testing Library:** Testes automatizados de componentes e fluxos.
-- **CSS:** Estilização personalizada (home.css).
-
-## Decisões de Projeto
-
-- O filtro por tipo foi implementado com uma combo box dinâmica, tornando a busca mais intuitiva.
-- O modo de busca pode ser alternado facilmente, melhorando a experiência do usuário.
-- O modal de detalhes permite visualizar rapidamente informações do Pokémon sem sair da tela principal.
-- O projeto está pronto para expansão, como busca global na PokeAPI ou exibição de detalhes em modal.
-- Testes automatizados garantem maior confiabilidade e facilitam futuras manutenções.
-
-## Como Rodar o Projeto
-
-### 1. Clone o repositório
+1. **Clone o repositório:**
 
 ```sh
-# Clone o repositório e acesse a pasta do projeto
-https://github.com/mfdzerohour/Desafio_DevEmDobro
+git clone https://github.com/mfdzerohour/Desafio_DevEmDobro.git
 cd Desafio_DevEmDobro/vite-projeto-pokedex-react-js_avancado
 ```
 
-### 2. Instale as dependências
+2. **Instale as dependências:**
 
 ```sh
 npm install
 ```
 
-### 3. Inicie o servidor de desenvolvimento
+3. **Inicie o servidor de desenvolvimento:**
 
 ```sh
 npm run dev
@@ -67,17 +46,17 @@ npm run dev
 
 Acesse: [http://localhost:5173](http://localhost:5173)
 
-### 4. Execute os testes automatizados
+4. **Execute os testes automatizados:**
 
 ```sh
 npm test
 ```
 
-### 5. Problemas comuns
+## Dicas e Solução de Problemas
 
-- **Erro de dependências:** Certifique-se de que todas as dependências estão instaladas corretamente.
-- **Erro de roteamento:** Verifique se o vite.config.js está configurado para rotas SPA.
-- **Porta em uso:** Se a porta padrão (5173) estiver em uso, o Vite usará outra porta. Verifique o terminal para o endereço correto.
+- Se a porta 5173 estiver ocupada, o Vite usará outra porta (verifique o terminal).
+- Certifique-se de que todas as dependências estão instaladas corretamente.
+- Para problemas de roteamento, confira a configuração do vite.config.js para SPA.
 
 ## Screenshots
 
@@ -85,5 +64,3 @@ npm test
 ![Tema escuro](./src/images/desktop-screenshot.png)
 
 ---
-
-Projeto desenvolvido para fins educacionais no curso DevEmDobro.
