@@ -115,89 +115,50 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                         theme.palette.common.white,
                                         0.15
                                     ),
-                                    "&:hover": {
-                                        backgroundColor: alpha(
-                                            theme.palette.common.white,
-                                            0.25
-                                        ),
-                                    },
                                     color: "#fff",
                                     borderRadius: 1,
-                                    "& .MuiOutlinedInput-notchedOutline": {
-                                        borderColor: "#fff",
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#fff',
                                     },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                        borderColor: "#fff",
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#fff',
                                     },
-                                }}
-                                MenuProps={{
-                                    PaperProps: {
-                                        sx: {
-                                            backgroundColor: alpha(
-                                                theme.palette.common.white,
-                                                0.15
-                                            ),
-                                            "& .MuiMenuItem-root": {
-                                                backgroundColor: "#fff",
-                                                color: "#000",
-                                                "&:hover": {
-                                                    backgroundColor: alpha(
-                                                        theme.palette.common
-                                                            .white,
-                                                        0.25
-                                                    ),
-                                                },
-                                            },
-                                        },
+                                    '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#fff',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#fff',
+                                    },
+                                    // Corrige o hover do container do Select
+                                    '&.MuiOutlinedInput-root:hover': {
+                                        borderColor: '#fff',
                                     },
                                 }}
                             >
-                                <MenuItem
-                                    value="name"
-                                    sx={{
-                                        background: "#fff",
-                                        color: "#000",
-                                        "&:hover": {
-                                            backgroundColor: alpha(
-                                                theme.palette.common.white,
-                                                0.25
-                                            ),
-                                        },
-                                    }}
-                                >
-                                    Nome
-                                </MenuItem>
-                                <MenuItem
-                                    value="type"
-                                    sx={{
-                                        background: "#fff",
-                                        color: "#000",
-                                        "&:hover": {
-                                            backgroundColor: alpha(
-                                                theme.palette.common.white,
-                                                0.25
-                                            ),
-                                        },
-                                    }}
-                                >
-                                    Tipo
-                                </MenuItem>
+                                <MenuItem value="name">Nome</MenuItem>
+                                <MenuItem value="type">Tipo</MenuItem>
                             </Select>
                         </FormControl>
-                        {searchMode === "name" ? (
+
+                        {searchMode === "name" && (
                             <Search>
                                 <SearchIconWrapper>
                                     <SearchIcon />
                                 </SearchIconWrapper>
                                 <StyledInputBase
-                                    placeholder="Buscar Pokémon..."
+                                    placeholder="Buscar…"
                                     inputProps={{ "aria-label": "search" }}
                                     value={searchValue}
                                     onChange={handleSearchChange}
                                 />
                             </Search>
-                        ) : (
-                            <FormControl sx={{ minWidth: 140 }} size="small">
+                        )}
+
+                        {searchMode === "type" && (
+                            <FormControl
+                                sx={{ minWidth: 120 }}
+                                size="small"
+                            >
                                 <InputLabel
                                     id="type-select-label"
                                     sx={{
@@ -220,90 +181,42 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                                             theme.palette.common.white,
                                             0.15
                                         ),
-                                        "&:hover": {
-                                            backgroundColor: alpha(
-                                                theme.palette.common.white,
-                                                0.25
-                                            ),
-                                        },
                                         color: "#fff",
                                         borderRadius: 1,
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            borderColor: "#fff",
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#fff',
                                         },
-                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                            borderColor: "#fff",
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#fff',
                                         },
-                                    }}
-                                    MenuProps={{
-                                        PaperProps: {
-                                            sx: {
-                                                backgroundColor: alpha(
-                                                    theme.palette.common.white,
-                                                    0.15
-                                                ),
-                                                "& .MuiMenuItem-root": {
-                                                    backgroundColor: "#fff",
-                                                    color: "#000",
-                                                    "&:hover": {
-                                                        backgroundColor: alpha(
-                                                            theme.palette.common
-                                                                .white,
-                                                            0.25
-                                                        ),
-                                                    },
-                                                },
-                                            },
+                                        '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#fff',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#fff',
+                                        },
+                                        // Corrige o hover do container do Select
+                                        '&.MuiOutlinedInput-root:hover': {
+                                            borderColor: '#fff',
                                         },
                                     }}
                                 >
-                                    <MenuItem
-                                        value=""
-                                        sx={{
-                                            background: "#fff",
-                                            color: "#000",
-                                            "&:hover": {
-                                                backgroundColor: alpha(
-                                                    theme.palette.common.white,
-                                                    0.25
-                                                ),
-                                            },
-                                        }}
-                                    >
-                                        Todos
-                                    </MenuItem>
-                                    {availableTypes &&
-                                        availableTypes.map((type) => (
-                                            <MenuItem
-                                                key={type}
-                                                value={type}
-                                                sx={{
-                                                    background: "#fff",
-                                                    color: "#000",
-                                                    "&:hover": {
-                                                        backgroundColor: alpha(
-                                                            theme.palette.common
-                                                                .white,
-                                                            0.25
-                                                        ),
-                                                    },
-                                                }}
-                                            >
-                                                {type.charAt(0).toUpperCase() +
-                                                    type.slice(1)}
-                                            </MenuItem>
-                                        ))}
+                                    {availableTypes.map((type) => (
+                                        <MenuItem key={type} value={type}>
+                                            {type}
+                                        </MenuItem>
+                                    ))}
                                 </Select>
                             </FormControl>
                         )}
                     </Box>
 
-                    {/* Botão de alternância de tema */}
+                    {/* Alternador de tema */}
                     <ThemeToggler />
                 </Toolbar>
             </AppBar>
-            {/* Adicione um espaçamento maior para evitar sobreposição do conteúdo */}
-            <Toolbar sx={{ marginBottom: "2em" }} />
+            {/* Espaço para evitar sobreposição da AppBar */}
+            <Toolbar />
         </Box>
     );
 }
