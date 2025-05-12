@@ -89,17 +89,99 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                             marginRight: "1em",
                         }}
                     >
-                        <FormControl sx={{ minWidth: 120, marginRight: 2 }} size="small">
-                            <InputLabel id="search-mode-label">Buscar por</InputLabel>
+                        <FormControl
+                            sx={{ minWidth: 120, marginRight: 2 }}
+                            size="small"
+                        >
+                            <InputLabel
+                                id="search-mode-label"
+                                sx={{
+                                    color: "#fff",
+                                    "&.Mui-focused": {
+                                        color: "#fff",
+                                    },
+                                }}
+                            >
+                                Buscar por
+                            </InputLabel>
                             <Select
                                 labelId="search-mode-label"
                                 id="search-mode"
                                 value={searchMode}
                                 label="Buscar por"
                                 onChange={handleModeChange}
+                                sx={{
+                                    backgroundColor: alpha(
+                                        theme.palette.common.white,
+                                        0.15
+                                    ),
+                                    "&:hover": {
+                                        backgroundColor: alpha(
+                                            theme.palette.common.white,
+                                            0.25
+                                        ),
+                                    },
+                                    color: "#fff",
+                                    borderRadius: 1,
+                                    "& .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
+                                    },
+                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "#fff",
+                                    },
+                                }}
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: {
+                                            backgroundColor: alpha(
+                                                theme.palette.common.white,
+                                                0.15
+                                            ),
+                                            "& .MuiMenuItem-root": {
+                                                backgroundColor: "#fff",
+                                                color: "#000",
+                                                "&:hover": {
+                                                    backgroundColor: alpha(
+                                                        theme.palette.common
+                                                            .white,
+                                                        0.25
+                                                    ),
+                                                },
+                                            },
+                                        },
+                                    },
+                                }}
                             >
-                                <MenuItem value="name">Nome</MenuItem>
-                                <MenuItem value="type">Tipo</MenuItem>
+                                <MenuItem
+                                    value="name"
+                                    sx={{
+                                        background: "#fff",
+                                        color: "#000",
+                                        "&:hover": {
+                                            backgroundColor: alpha(
+                                                theme.palette.common.white,
+                                                0.25
+                                            ),
+                                        },
+                                    }}
+                                >
+                                    Nome
+                                </MenuItem>
+                                <MenuItem
+                                    value="type"
+                                    sx={{
+                                        background: "#fff",
+                                        color: "#000",
+                                        "&:hover": {
+                                            backgroundColor: alpha(
+                                                theme.palette.common.white,
+                                                0.25
+                                            ),
+                                        },
+                                    }}
+                                >
+                                    Tipo
+                                </MenuItem>
                             </Select>
                         </FormControl>
                         {searchMode === "name" ? (
@@ -116,20 +198,101 @@ export default function NavBar({ pokemonFilter, searchMode, setSearchMode, avail
                             </Search>
                         ) : (
                             <FormControl sx={{ minWidth: 140 }} size="small">
-                                <InputLabel id="type-select-label">Tipo</InputLabel>
+                                <InputLabel
+                                    id="type-select-label"
+                                    sx={{
+                                        color: "#fff",
+                                        "&.Mui-focused": {
+                                            color: "#fff",
+                                        },
+                                    }}
+                                >
+                                    Tipo
+                                </InputLabel>
                                 <Select
                                     labelId="type-select-label"
                                     id="type-select"
                                     value={searchValue}
                                     label="Tipo"
                                     onChange={handleTypeChange}
+                                    sx={{
+                                        backgroundColor: alpha(
+                                            theme.palette.common.white,
+                                            0.15
+                                        ),
+                                        "&:hover": {
+                                            backgroundColor: alpha(
+                                                theme.palette.common.white,
+                                                0.25
+                                            ),
+                                        },
+                                        color: "#fff",
+                                        borderRadius: 1,
+                                        "& .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#fff",
+                                        },
+                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#fff",
+                                        },
+                                    }}
+                                    MenuProps={{
+                                        PaperProps: {
+                                            sx: {
+                                                backgroundColor: alpha(
+                                                    theme.palette.common.white,
+                                                    0.15
+                                                ),
+                                                "& .MuiMenuItem-root": {
+                                                    backgroundColor: "#fff",
+                                                    color: "#000",
+                                                    "&:hover": {
+                                                        backgroundColor: alpha(
+                                                            theme.palette.common
+                                                                .white,
+                                                            0.25
+                                                        ),
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    }}
                                 >
-                                    <MenuItem value="">Todos</MenuItem>
-                                    {availableTypes && availableTypes.map((type) => (
-                                        <MenuItem key={type} value={type}>
-                                            {type.charAt(0).toUpperCase() + type.slice(1)}
-                                        </MenuItem>
-                                    ))}
+                                    <MenuItem
+                                        value=""
+                                        sx={{
+                                            background: "#fff",
+                                            color: "#000",
+                                            "&:hover": {
+                                                backgroundColor: alpha(
+                                                    theme.palette.common.white,
+                                                    0.25
+                                                ),
+                                            },
+                                        }}
+                                    >
+                                        Todos
+                                    </MenuItem>
+                                    {availableTypes &&
+                                        availableTypes.map((type) => (
+                                            <MenuItem
+                                                key={type}
+                                                value={type}
+                                                sx={{
+                                                    background: "#fff",
+                                                    color: "#000",
+                                                    "&:hover": {
+                                                        backgroundColor: alpha(
+                                                            theme.palette.common
+                                                                .white,
+                                                            0.25
+                                                        ),
+                                                    },
+                                                }}
+                                            >
+                                                {type.charAt(0).toUpperCase() +
+                                                    type.slice(1)}
+                                            </MenuItem>
+                                        ))}
                                 </Select>
                             </FormControl>
                         )}
